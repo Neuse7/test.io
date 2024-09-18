@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+    <title>安全領域設定アプリ</title>
+	
+	<script>
+        window.addEventListener("touchmove", function (event) { event.preventDefault(); }, { passive: false });
+    </script>
+	
+    <!-- Favicon -->
+    <link rel="icon" href="Demo.ico" type="image/x-icon">
+    
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="Demo180.png">
+    
+    <!-- Android Chrome Icon -->
+    <link rel="icon" type="image/png" sizes="192x192" href="Demo192.png">
+
+    <!-- Safari Pinned Tab Icon -->
+    <link rel="mask-icon" href="Demo.svg" color="#5bbad5">
+	
+     <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <h1>安全領域設定アプリ</h1>
+	</div>
+    <div class="container">
+        <button id="scanButton">探す</button>
+        <button id="disconnectButton" disabled>切断</button>
+        <br><br>
+        <input type="number" id="value1" placeholder="X" min="0" step="1">
+		<br>
+        <input type="number" id="value2" placeholder="Y" min="0" step="1">
+		<br>
+        <input type="number" id="value3" placeholder="Z" min="0" step="1">
+        <br><br>
+        <button id="sendButton" disabled>送信</button>
+        <div id="messageDiv" class="message"></div>
+	</div>
+
+    <script src="sketch.js"></script>
+</body>
+</html>
