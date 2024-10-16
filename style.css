@@ -16,24 +16,6 @@ html, body {
     padding: 20px;
     box-sizing: border-box;
 }
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #f0f0f0; /* 背景色をライトグレーに */
-}
-		.header {
-    background-color: #87CEFA; /* 水色の背景色 */
-    width: 100%;
-    text-align: center;
-    padding: 20px;
-    box-sizing: border-box;
-}
 h1 {
     margin: 0;
     color: #fff; /* タイトルの文字色を白に */
@@ -62,4 +44,23 @@ button {
     font-size: 18px;
     font-weight: bold;
     color: #333;
+}
+.time-header, .input-header {
+    background-color: #87CEFA; /* 水色の背景色 */
+    text-align: center;
+    font-size: 24px; /* タイトルの文字の大きさ */
+    padding: 10px; /* 上下の余白 */
+    border-radius: 5px; /* 角を丸める */
+    margin-top: 20px; /* 上部に余白を追加 */
+    color: #fff; /* 文字色を白に */
+}
+.rate-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px; /* ボタンとテキストの間に余白を追加 */
+}
+.rate-text {
+    margin-left: 5px; /* ボタンとテキストの間に余白を追加 */
+    font-size: 16px; /* テキストのサイズ */
 }
