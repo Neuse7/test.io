@@ -1,6 +1,8 @@
 const scanButton = document.getElementById('scanButton');
 const disconnectButton = document.getElementById('disconnectButton');
 const sendButton = document.getElementById('sendButton');
+const fastRateButton = document.getElementById('fastRateButton');
+const slowRateButton = document.getElementById('slowRateButton');
 const messageDiv = document.getElementById('messageDiv');
 const value1 = document.getElementById('value1');
 const value2 = document.getElementById('value2');
@@ -14,6 +16,14 @@ let device, server, uartService, txCharacteristic, rxCharacteristic;
 
 function displayMessage(message) {
     messageDiv.textContent = message;
+}
+
+function getCurrentTimeString() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    return `${hours}:${minutes}:${seconds}`;
 }
 
 scanButton.addEventListener('click', async () => {
@@ -45,6 +55,8 @@ async function connectToDevice(selectedDevice) {
         await txCharacteristic.startNotifications();
 
         sendButton.disabled = false;
+        fastRateButton.disabled = false; // Enable Fast Rate button
+        slowRateButton.disabled = false; // Enable Slow Rate button
         disconnectButton.disabled = false;
         displayMessage('接続完了');
     } catch (error) {
@@ -64,6 +76,8 @@ disconnectButton.addEventListener('click', async () => {
 
             disconnectButton.disabled = true;
             sendButton.disabled = true;
+            fastRateButton.disabled = true; // Disable Fast Rate button
+            slowRateButton.disabled = true; // Disable Slow Rate button
             displayMessage('デバイスが切断されました');
         }
     } catch (error) {
@@ -76,8 +90,8 @@ sendButton.addEventListener('click', async () => {
     try {
         if (!rxCharacteristic) {
             displayMessage('エラー: デバイスと接続できませんでした');
-        return;
-    }
+            return;
+        }
 
         const num1 = parseInt(value1.value, 10) || 0;
         const num2 = parseInt(value2.value, 10) || 0;
@@ -88,27 +102,71 @@ sendButton.addEventListener('click', async () => {
             return;
         }
 
-        const data = new Uint8Array(6);
-        data[0] = num1 & 0xFF;
-        data[1] = (num1 >> 8) & 0xFF;
-        data[2] = num2 & 0xFF;
-        data[3] = (num2 >> 8) & 0xFF;
-        data[4] = num3 & 0xFF;
-        data[5] = (num3 >> 8) & 0xFF;
+        const data = new Uint8Array(7); // 1バイトのアドレス + 6バイトのデータ
+        data[0] = 0x01; // アドレスとして使用する1バイト
+        data[1] = num1 & 0xFF;
+        data[2] = (num1 >> 8) & 0xFF;
+        data[3] = num2 & 0xFF;
+        data[4] = (num2 >> 8) & 0xFF;
+        data[5] = num3 & 0xFF;
+        data[6] = (num3 >> 8) & 0xFF;
 
         await rxCharacteristic.writeValue(data);
 
         // Get current time
-        const now = new Date();
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const seconds = String(now.getSeconds()).padStart(2, '0');
-        const timeString = `${hours}:${minutes}:${seconds}`;
-
+        const timeString = getCurrentTimeString();
         displayMessage(`データ送信完了( ${timeString} )`);
     } catch (error) {
         console.error('Error during data send:', error);
         displayMessage('エラー: データ送信に失敗しました');
+    }
+});
+
+// Fast Rate button event listener
+fastRateButton.addEventListener('click', async () => {
+    try {
+        if (!rxCharacteristic) {
+            displayMessage('エラー: デバイスと接続できませんでした');
+            return;
+        }
+
+        const fastRateData = new Uint8Array(3); // 1バイトのアドレス + 2バイトのデータ
+        fastRateData[0] = 0x02; // アドレス
+        fastRateData[1] = 6 & 0xFF;
+        fastRateData[2] = (6 >> 8) & 0xFF;
+		fastRateData[3] = 12 & 0xFF;
+        fastRateData[4] = (12 >> 8) & 0xFF;
+
+        await rxCharacteristic.writeValue(fastRateData);
+        const timeString = getCurrentTimeString();
+        displayMessage(`Fast Rate 送信完了( ${timeString} )`);
+    } catch (error) {
+        console.error('Error during fast rate send:', error);
+        displayMessage('エラー: Fast Rate送信に失敗しました');
+    }
+});
+
+// Slow Rate button event listener
+slowRateButton.addEventListener('click', async () => {
+    try {
+        if (!rxCharacteristic) {
+            displayMessage('エラー: デバイスと接続できませんでした');
+            return;
+        }
+
+        const slowRateData = new Uint8Array(3); // 1バイトのアドレス + 2バイトのデータ
+        slowRateData[0] = 0x03; // アドレス
+        slowRateData[1] = 10 & 0xFF;
+        slowRateData[2] = (10 >> 8) & 0xFF;
+		slowRateData[3] = 100 & 0xFF;
+        slowRateData[4] = (100 >> 8) & 0xFF;
+
+        await rxCharacteristic.writeValue(slowRateData);
+        const timeString = getCurrentTimeString();
+        displayMessage(`Slow Rate 送信完了( ${timeString} )`);
+    } catch (error) {
+        console.error('Error during slow rate send:', error);
+        displayMessage('エラー: Slow Rate送信に失敗しました');
     }
 });
 
