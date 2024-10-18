@@ -157,7 +157,7 @@ slowRateButton.addEventListener('click', async () => {
         }
 
         const slowRateData = new Uint8Array(7); // 1バイトのアドレス + 2バイトのデータ
-        slowRateData[0] = 0x03; // アドレス
+        slowRateData[0] = 0x02; // アドレス
         slowRateData[1] = 6 & 0xFF;
         slowRateData[2] = (6 >> 8) & 0xFF;
 	slowRateData[3] = 60 & 0xFF;
