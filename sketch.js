@@ -130,12 +130,14 @@ fastRateButton.addEventListener('click', async () => {
             return;
         }
 
-        const fastRateData = new Uint8Array(3); // 1バイトのアドレス + 2バイトのデータ
+        const fastRateData = new Uint8Array(7); // 1バイトのアドレス + 2バイトのデータ
         fastRateData[0] = 0x02; // アドレス
         fastRateData[1] = 6 & 0xFF;
         fastRateData[2] = (6 >> 8) & 0xFF;
-		fastRateData[3] = 12 & 0xFF;
+	fastRateData[3] = 12 & 0xFF;
         fastRateData[4] = (12 >> 8) & 0xFF;
+	fastRateData[5] = 5 & 0xFF;
+        fastRateData[6] = (5 >> 8) & 0xFF;
 
         await rxCharacteristic.writeValue(fastRateData);
         const timeString = getCurrentTimeString();
@@ -154,13 +156,15 @@ slowRateButton.addEventListener('click', async () => {
             return;
         }
 
-        const slowRateData = new Uint8Array(3); // 1バイトのアドレス + 2バイトのデータ
+        const slowRateData = new Uint8Array(7); // 1バイトのアドレス + 2バイトのデータ
         slowRateData[0] = 0x03; // アドレス
-        slowRateData[1] = 10 & 0xFF;
-        slowRateData[2] = (10 >> 8) & 0xFF;
-		slowRateData[3] = 100 & 0xFF;
-        slowRateData[4] = (100 >> 8) & 0xFF;
-
+        slowRateData[1] = 6 & 0xFF;
+        slowRateData[2] = (6 >> 8) & 0xFF;
+	slowRateData[3] = 60 & 0xFF;
+        slowRateData[4] = (60 >> 8) & 0xFF;
+	slowRateData[5] = 3 & 0xFF;
+        slowRateData[6] = (3 >> 8) & 0xFF;
+	    
         await rxCharacteristic.writeValue(slowRateData);
         const timeString = getCurrentTimeString();
         displayMessage(`Slow Rate 送信完了( ${timeString} )`);
