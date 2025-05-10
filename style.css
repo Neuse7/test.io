@@ -2,33 +2,56 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #f0f0f0; /* 背景色をライトグレーに */
+    background-color: #f0f0f0;
 }
+
 .header {
-    background-color: #87CEFA; /* 水色の背景色 */
+    background-color: #87CEFA;
     width: 100%;
     text-align: center;
     padding: 20px;
     box-sizing: border-box;
 }
+
 h1 {
     margin: 0;
-    color: #fff; /* タイトルの文字色を白に */
+    color: #fff;
 }
-.container {
-    width: 100%;
-    max-width: 500px;
+
+.main-container {
+    display: flex;
+    justify-content: space-between;
     padding: 20px;
-    box-sizing: border-box;
-    background: #fff; /* コンテンツの背景色を白に */
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    gap: 20px;
 }
+
+.left-panel {
+    width: 35%;
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.right-panel {
+    width: 55%;
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
 input, button {
     font-size: 16px;
     margin: 5px;
@@ -36,31 +59,75 @@ input, button {
     border-radius: 5px;
     border: 1px solid #ccc;
 }
+
 button {
     cursor: pointer;
 }
+
+.input-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* 垂直方向に中央揃え */
+}
+
+.input-container input {
+    width: calc(45% - 10px);
+}
+.input-container span {
+    margin-left: 5px; /* cmテキストの間隔を少し調整 */
+    text-align: left; /* cmテキストを左詰めにする */
+    display: inline-block; /* 左詰めにするためにinline-blockを使用 */
+    width: 100%; /* これによりspan要素が親要素の幅を取る */
+}
+
+.rate-container {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* ボタンとテキストの間隔を調整 */
+}
+
+.rate-text {
+    margin-left: 2px;
+    font-size: 14px;
+}
+
 .message {
-    margin-top: 10px;
-    font-size: 18px;
+    margin-top: 8px;
+    font-size: 16px;
     font-weight: bold;
     color: #333;
 }
 .time-header, .input-header {
     background-color: #87CEFA; /* 水色の背景色 */
     text-align: center;
-    font-size: 24px; /* タイトルの文字の大きさ */
-    padding: 10px; /* 上下の余白 */
+    font-size: 22px; /* タイトルの文字の大きさ */
+    padding: 5px; /* 上下の余白 */
     border-radius: 5px; /* 角を丸める */
-    margin-top: 20px; /* 上部に余白を追加 */
+    margin-top: 14px; /* 上部に余白を追加 */
     color: #fff; /* 文字色を白に */
 }
-.rate-container {
+		
+/* ボタンを左詰めに */
+.button-container {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 10px; /* ボタンとテキストの間に余白を追加 */
+    justify-content: flex-start;
+    gap: 10px;
 }
-.rate-text {
-    margin-left: 5px; /* ボタンとテキストの間に余白を追加 */
-    font-size: 16px; /* テキストのサイズ */
+
+.graph {
+    width: 100%;
+    height: 100%;
+    background-color: lightgray;
+    border-radius: 10px;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+        width: 90%; /* 画面幅に合わせて調整 */
+    }
+    .left-panel, .right-panel {
+        width: 100%;
+    }
 }
