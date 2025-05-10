@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>安全領域設定アプリ</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <!-- Favicon -->
     <link rel="icon" href="Demo.ico" type="image/x-icon">
     
@@ -22,31 +23,45 @@
     <div class="header">
         <h1>安全領域設定アプリ</h1>
     </div>
-    <div class="container">
-	<button id="scanButton">探す</button>
-        <button id="disconnectButton" disabled>切断</button>
-        <div class="input-header">安全領域の設定</div>
-        <input type="number" id="value1" placeholder="X" min="0" step="1">
-        <span>cm</span>
-        <br>
-        <input type="number" id="value2" placeholder="Y" min="0" step="1">
-        <span>cm</span>
-        <br>
-        <input type="number" id="value3" placeholder="Z" min="0" step="1">
-        <span>cm</span>
-        <br><br>
-        <button id="sendButton" disabled>送信</button>
-        
-        <div class="time-header">測距間隔の変更</div>
-        <div class="rate-container">
-            <button id="fastRateButton" disabled>Fast Rate</button>
-            <span class="rate-text">(12ms)</span>
-            <button id="slowRateButton" disabled>Slow Rate</button>
-            <span class="rate-text">(60ms)</span>
+    <div class="main-container">
+        <div class="left-panel">
+            <div class="button-container">
+                <button id="scanButton">探す</button>
+                <button id="disconnectButton" disabled>切断</button>
+	    </div>
+            <div class="input-header">領域の設定</div>
+            <div class="input-container">
+                <input type="number" id="value1" value="0"　placeholder="X" min="0" step="1">
+                <span>cm</span>
+            </div>
+            <div class="input-container">
+                <input type="number" id="value2" value="0"　placeholder="Y" min="0" step="1">
+                <span>cm</span>
+            </div>
+            <div class="input-container">
+                <input type="number" id="value3" value="0"　placeholder="Z" min="0" step="1">
+                <span>cm</span>
+            </div>
+            <div class="button-container">
+                <button id="sendButton" disabled>送信</button>
+            </div>
+
+            <!-- 測距間隔の変更 -->
+            <div class="time-header">測距間隔の変更</div>
+            <div class="rate-container">
+                <button id="fastRateButton" disabled>Fast Rate</button>
+                <span class="rate-text">(12ms)</span>
+                <button id="slowRateButton" disabled>Slow Rate</button>
+                <span class="rate-text">(60ms)</span>
+            </div>
+
+            <div id="messageDiv" class="message"></div>
         </div>
-        
-        <div id="messageDiv" class="message"></div>
-    </div>
+
+        <div class="right-panel">
+            <!-- グラフを描画する場所 -->
+            <div id="graph" class="graph"></div>
+        </div>
 
     <script src="sketch.js"></script>
 </body>
