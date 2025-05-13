@@ -11,6 +11,7 @@ const value3 = document.getElementById('value3');
 const UART_SERVICE_UUID = '6e400001-b5a3-f393-e0a9-e50e24dcca9e'; // Nordic UART Service UUID
 const UART_RX_CHARACTERISTIC_UUID = '6e400002-b5a3-f393-e0a9-e50e24dcca9e'; // RX Characteristic UUID
 const UART_TX_CHARACTERISTIC_UUID = '6e400003-b5a3-f393-e0a9-e50e24dcca9e'; // TX Characteristic UUID
+const graph = document.getElementById('graph');
 
 let device, server, uartService, txCharacteristic, rxCharacteristic;
 
@@ -155,7 +156,6 @@ function resetButtons() {
     disconnectButton.disabled = true;
     fastRateButton.disabled = true; // Disable Fast Rate button
     slowRateButton.disabled = true; // Disable Slow Rate button
-    demoRateButton.disabled = true; // Disable Slow Rate button
 }
 		
 // 接続が切れた場合の処理
